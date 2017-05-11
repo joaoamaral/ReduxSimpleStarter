@@ -1,3 +1,4 @@
+import _ from 'lodash';
 // create a new react component that produces some HTML
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -29,9 +30,10 @@ class App extends Component {
   }
 
   render(){
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 1000);
     return (
       <div>
-        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           onVideoSelect={ selectedVideo => this.setState({selectedVideo}) }
